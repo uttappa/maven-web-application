@@ -1,11 +1,28 @@
-version: '3.1'
+version: "3.1"
 services:
   springboot:
-    image: dockerhandson/maven-web-application:VERSION
-    restart: always
-    ports:
-    - 9090:8080
-    networks:
-    - mavenappbridge
+   image: veda1998/maven-web-app:TAG
+   restart: always
+   depends_on:
+   - mongo
+   ports:
+   - 8080:8080
+   networks:
+   - springnetwork
+   environment:
+   - MONGO_DB_ROOT_HOSTNAME=mogo
+   - MONGO_DB_ROOT_USERNAME=robinuttappa
+   - MONGO_DB_ROOT_PASSWORD=8975758051r@
+  mongo:
+   image: mongo
+   networks:
+   - springnetwork
+   volumes:
+   - mongovol:/data/db
+   environment:
+   - MONGO_INITDB_ROOT_USERNAME=robinuttappa
+   - MONGO_INITDB_ROOT_PASSWORD=8975758051r@
 networks:
-  mavenappbridge:
+  springnetwork:
+volumes:
+ mongovol:
